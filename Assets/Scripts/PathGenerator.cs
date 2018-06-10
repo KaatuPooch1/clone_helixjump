@@ -11,7 +11,7 @@ public class PathGenerator : MonoBehaviour
 
     private float mSpeed = 30.0f;
     private GameControl mGCScript;
-
+    private Vector3 mVelocity = Vector3.zero;
     private void Start()
     {
         mGCScript = GameObject.Find("GameControl").GetComponent<GameControl>();
@@ -23,7 +23,8 @@ public class PathGenerator : MonoBehaviour
         {
             if (mGCScript.isAreaMoved == true)
             {
-                transform.position = new Vector3(0, transform.position.y + 1.6f, 0);//Vector3.MoveTowards(transform.position, new Vector3(0, transform.position.y + 1.6f, 0), mSpeed * Time.deltaTime);
+                //transform.position = new Vector3(0, transform.position.y + 1.6f, 0);//Vector3.MoveTowards(transform.position, new Vector3(0, transform.position.y + 1.6f, 0), mSpeed * Time.deltaTime);
+                transform.position = Vector3.SmoothDamp(transform.position, new Vector3(0, transform.position.y + 1.6f, 0), ref mVelocity, 0.3f);
             }
 
             transform.rotation = mGCScript.GameAreaGO.transform.rotation;
